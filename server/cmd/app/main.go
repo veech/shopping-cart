@@ -2,15 +2,15 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"net/http"
+	"github.com/veech/joshai-coding-quiz/internal/controllers"
 )
 
 func main() {
+	itemController := controllers.NewItemController()
+
 	router := gin.Default()
 
-	router.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "Hello World")
-	})
+	router.GET("/items", itemController.GetItems)
 
 	router.Run(":3000")
 }
