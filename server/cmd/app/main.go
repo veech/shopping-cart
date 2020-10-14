@@ -12,6 +12,8 @@ func main() {
 
 	router := gin.Default()
 
+	router.Use(middleware.CORSMiddleware)
+
 	/* --- Public routes --- */
 
 	router.GET("/items", itemController.GetItems)
