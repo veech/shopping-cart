@@ -78,10 +78,8 @@ func (cc *CartController) AddItemToCart(c *gin.Context) {
 
 	existingCartItem := cc.getCartItemByItemID(data.User, data.Item)
 
-	// Add quantity to existing cart item if it already exists
 	if existingCartItem != nil {
-		existingCartItem.Quantity = existingCartItem.Quantity + data.Quantity
-		c.JSON(http.StatusOK, existingCartItem)
+		c.AbortWithStatusJSON(http.StatusConflict, gin.H{"error": "item already exists in cart"})
 		return
 	}
 

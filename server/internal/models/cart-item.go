@@ -4,6 +4,6 @@ package models
 // In a production setting, we would use a user id that we could verify against the database.
 type CartItem struct {
 	Item     string `json:"item"`
-	Quantity int    `json:"quantity"`
+	Quantity uint   `json:"quantity"`
 	User     string `json:"user"`
 }
