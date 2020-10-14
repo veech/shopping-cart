@@ -6,12 +6,16 @@ import (
 	"net/http"
 )
 
-func getTokenFromContext(c *gin.Context) string {
+func getToken(c *gin.Context) string {
 	// Ideally this would be some sort of token from which we could decrypt to get a user
 	// for simplicity, it will just be the username
 	token := c.Request.Header.Get("token")
 
 	return token
+}
+
+type cartItemUpdate struct {
+	Quantity uint `json:"quantity"`
 }
 
 // CartController contains the route handlers for "cart" routes
@@ -54,7 +58,7 @@ func NewCartController() CartController {
 
 // GetCartItems returns the list of user's cart items
 func (cc *CartController) GetCartItems(c *gin.Context) {
-	username := getTokenFromContext(c)
+	username := getToken(c)
 
 	cartItems := cc.getCartItemsByUserID(username)
 
@@ -70,13 +74,13 @@ func (cc *CartController) AddItemToCart(c *gin.Context) {
 		return
 	}
 
-	username := getTokenFromContext(c)
+	username := getToken(c)
 	data.User = username
 
 	// Ideally, we would also verify that the item id that is being added to the cart exists in the db
 	// before adding it to cartItems
 
-	existingCartItem := cc.getCartItemByItemID(data.User, data.Item)
+	existingCartItem := cc.getCartItemByItemID(username, data.Item)
 
 	if existingCartItem != nil {
 		c.AbortWithStatusJSON(http.StatusConflict, gin.H{"error": "item already exists in cart"})
@@ -85,4 +89,27 @@ func (cc *CartController) AddItemToCart(c *gin.Context) {
 
 	cc.cartItems = append(cc.cartItems, data)
 	c.JSON(http.StatusCreated, data)
+}
+
+// UpdateCartItem updates a single cart item
+func (cc *CartController) UpdateCartItem(c *gin.Context) {
+	var data cartItemUpdate
+
+	if c.BindJSON(&data) != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "invalid request data"})
+		return
+	}
+
+	itemID := c.Param("itemId")
+	username := getToken(c)
+
+	existingCartItem := cc.getCartItemByItemID(username, itemID)
+
+	if existingCartItem == nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "item not found in cart"})
+		return
+	}
+
+	existingCartItem.Quantity = data.Quantity
+	c.JSON(http.StatusOK, existingCartItem)
 }

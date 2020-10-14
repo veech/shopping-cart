@@ -22,6 +22,7 @@ func main() {
 
 	router.GET("/cart", cartController.GetCartItems)
 	router.POST("/cart", cartController.AddItemToCart)
+	router.PATCH("/cart/:itemId", cartController.UpdateCartItem)
 
 	router.Run(":3000")
 }
