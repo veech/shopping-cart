@@ -12,8 +12,14 @@ export const App = () => (
       <Nav />
 
       <div className="main">
-        <Route path="/cart" component={CartPage} />
-        <Route path="/shop" component={ShopPage} />
+        <Route path="/cart">
+          <CartPage />
+        </Route>
+
+        <Route path="/shop">
+          <ShopPage />
+        </Route>
+
         <Route path="/" exact>
           <Redirect to="/shop" />
         </Route>
