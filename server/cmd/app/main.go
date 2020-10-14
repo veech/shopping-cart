@@ -21,6 +21,7 @@ func main() {
 	/* --- User routes --- */
 
 	router.GET("/cart", cartController.GetCartItems)
+	router.POST("/cart", cartController.AddItemToCart)
 
 	router.Run(":3000")
 }
