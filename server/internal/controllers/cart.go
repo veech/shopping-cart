@@ -37,7 +37,7 @@ func (cc *CartController) getCartItemsByUserID(userID string) []models.CartItem 
 	return result
 }
 
-func (cc *CartController) getCartItemByItemID(userID string, itemID string) *models.CartItem {
+func (cc *CartController) getCartItemByID(userID string, itemID string) *models.CartItem {
 	for i := range cc.cartItems {
 		cartItem := &cc.cartItems[i]
 
@@ -49,6 +49,20 @@ func (cc *CartController) getCartItemByItemID(userID string, itemID string) *mod
 	}
 
 	return nil
+}
+
+func (cc *CartController) removeCartItemByID(userID string, itemID string) {
+	newCartItems := []models.CartItem{}
+
+	for _, cartItem := range cc.cartItems {
+		if cartItem.User == userID && cartItem.Item == itemID {
+			continue
+		}
+
+		newCartItems = append(newCartItems, cartItem)
+	}
+
+	cc.cartItems = newCartItems
 }
 
 // NewCartController initilizes a new CartController with no cart items
@@ -80,7 +94,7 @@ func (cc *CartController) AddItemToCart(c *gin.Context) {
 	// Ideally, we would also verify that the item id that is being added to the cart exists in the db
 	// before adding it to cartItems
 
-	existingCartItem := cc.getCartItemByItemID(username, data.Item)
+	existingCartItem := cc.getCartItemByID(username, data.Item)
 
 	if existingCartItem != nil {
 		c.AbortWithStatusJSON(http.StatusConflict, gin.H{"error": "item already exists in cart"})
@@ -103,7 +117,7 @@ func (cc *CartController) UpdateCartItem(c *gin.Context) {
 	itemID := c.Param("itemId")
 	username := getToken(c)
 
-	existingCartItem := cc.getCartItemByItemID(username, itemID)
+	existingCartItem := cc.getCartItemByID(username, itemID)
 
 	if existingCartItem == nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "item not found in cart"})
@@ -112,4 +126,14 @@ func (cc *CartController) UpdateCartItem(c *gin.Context) {
 
 	existingCartItem.Quantity = data.Quantity
 	c.JSON(http.StatusOK, existingCartItem)
+}
+
+// DeleteCartItem removes a single cart item. Does not thing if item couldn't be found
+func (cc *CartController) DeleteCartItem(c *gin.Context) {
+	username := getToken(c)
+	itemID := c.Param("itemId")
+
+	cc.removeCartItemByID(username, itemID)
+
+	c.JSON(http.StatusOK, nil)
 }
