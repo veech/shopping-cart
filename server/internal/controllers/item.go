@@ -15,9 +15,9 @@ type ItemController struct {
 func NewItemController() ItemController {
 	// Hard coding these for now but ideally would be stored in a DB
 	defaultItems := []models.Item{
-		models.Item{Name: "item1", Description: "This is item1", Price: 100},
-		models.Item{Name: "item2", Description: "This is item2", Price: 450},
-		models.Item{Name: "item3", Description: "This is item3", Price: 325},
+		models.Item{ID: "1", Name: "item1", Description: "This is item1", Price: 100},
+		models.Item{ID: "2", Name: "item2", Description: "This is item2", Price: 450},
+		models.Item{ID: "3", Name: "item3", Description: "This is item3", Price: 325},
 	}
 
 	return ItemController{itemList: defaultItems}
