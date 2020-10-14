@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/veech/joshai-coding-quiz/internal/controllers"
-	"github.com/veech/joshai-coding-quiz/internal/middleware"
+	"github.com/veech/shopping-cart/internal/controllers"
+	"github.com/veech/shopping-cart/internal/middleware"
 )
 
 func main() {

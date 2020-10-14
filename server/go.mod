@@ -1,4 +1,4 @@
-module github.com/veech/joshai-coding-quiz
+module github.com/veech/shopping-cart
 
 go 1.15
 

@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/veech/joshai-coding-quiz/internal/models"
+	"github.com/veech/shopping-cart/internal/models"
 	"net/http"
 )
 
