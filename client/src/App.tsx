@@ -1,11 +1,13 @@
-import React from 'react';
+import React from 'react'
 
 function App() {
   return (
-    <div className="App">
-      <h1>Shopping Cart Client</h1>
-    </div>
-  );
+    <section className="section">
+      <div className="container">
+        <h1 className="title">Shopping Cart</h1>
+      </div>
+    </section>
+  )
 }
 
-export default App;
+export default App
