@@ -2,3 +2,11 @@
   padding: 0.5rem 1.5rem;
   border-bottom: 1px solid #dbdbdb;
 }
+
+.navlink {
+  color: #4a4a4a;
+}
+
+.navlink.is-active {
+  color: #3298dc;
+}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 import './Nav.css'
@@ -10,14 +10,14 @@ export const Nav: React.FC<Props> = () => (
     <div className="container">
       <div className="level is-mobile">
         <div className="level-left">
-          <NavLink className="level-item has-text-grey-dark" to="/">
+          <NavLink className="level-item navlink" to="/shop" activeClassName="is-active">
             <strong>Shop</strong>
           </NavLink>
         </div>
 
         <div className="level-right">
           <div className="level-item">
-            <NavLink className="button is-primary" to="/cart">
+            <NavLink className="button" to="/cart" activeClassName="is-info">
               <span className="icon">
                 <i className="fas fa-shopping-cart"></i>
               </span>

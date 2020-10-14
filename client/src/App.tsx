@@ -1,9 +1,10 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom'
 
 import { Nav } from './components/navigation/Nav'
 
-import { ItemsPage } from './pages/ItemsPage'
+import { CartPage } from './pages/CartPage'
+import { ShopPage } from './pages/ShopPage'
 
 export const App = () => (
   <div className="app">
@@ -11,7 +12,11 @@ export const App = () => (
       <Nav />
 
       <div className="main">
-        <Route path="/" component={ItemsPage} />
+        <Route path="/cart" component={CartPage} />
+        <Route path="/shop" component={ShopPage} />
+        <Route path="/" exact>
+          <Redirect to="/shop" />
+        </Route>
       </div>
     </Router>
   </div>
