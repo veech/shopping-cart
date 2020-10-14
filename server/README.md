@@ -1,4 +1,4 @@
-### Server
+### Shopping Cart Server
 
 This is a RESTful API built for the Josh.ai shopping cart coding quiz.
 
