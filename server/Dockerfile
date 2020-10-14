@@ -16,6 +16,6 @@ ENV GOOS=linux
 
 RUN go build -a -o bin/app ./cmd/app
 
-EXPOSE 3000
+EXPOSE 8080
 
 ENTRYPOINT ["./bin/app"]

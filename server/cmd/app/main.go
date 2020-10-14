@@ -25,5 +25,6 @@ func main() {
 	router.PATCH("/cart/:itemId", cartController.UpdateCartItem)
 	router.DELETE("/cart/:itemId", cartController.DeleteCartItem)
 
-	router.Run(":3000")
+	// For simplicity, hard coding instead of obtaining via env var
+	router.Run(":8080")
 }
