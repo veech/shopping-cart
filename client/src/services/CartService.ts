@@ -8,7 +8,7 @@ interface NewCartItem {
 }
 
 export class CartService {
-  static async addItemToCart(newCartItem: NewCartItem): Promise<CartItem> {
+  static async addItem(newCartItem: NewCartItem): Promise<CartItem> {
     const { data } = await axios.post<CartItem>('/cart', newCartItem)
     return data
   }

@@ -25,7 +25,7 @@ export const Card: React.FC<Props> = props => {
 
     try {
       setLoading(true)
-      await CartService.addItemToCart(cartItem)
+      await CartService.addItem(cartItem)
       setLoading(false)
 
       toast.info(`Added ${quantity} '${props.name}' to cart`)
