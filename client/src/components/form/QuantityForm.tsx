@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
 
 interface Props {
-  loading?: boolean
-
   onSubmit?: (quantity: number) => void
 }
 
 export const QuantityForm: React.FC<Props> = props => {
   const [quantity, setQuantity] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
 
-  const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     const quantityNum = parseInt(quantity)
@@ -17,7 +16,9 @@ export const QuantityForm: React.FC<Props> = props => {
     if (isNaN(quantityNum)) return
 
     if (props.onSubmit) {
-      props.onSubmit(quantityNum)
+      setLoading(true)
+      await props.onSubmit(quantityNum)
+      setLoading(false)
     }
 
     setQuantity('')
@@ -37,7 +38,7 @@ export const QuantityForm: React.FC<Props> = props => {
         </div>
 
         <div className="control">
-          <button className={`button is-info is-outlined${props.loading ? ' is-loading' : ''}`}>
+          <button className={`button is-info is-outlined${loading ? ' is-loading' : ''}`}>
             <span className="icon">
               <i className="fas fa-plus"></i>
             </span>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { QuantityForm } from '../form/QuantityForm'
 
@@ -13,20 +13,16 @@ interface Props {
   img: string
   price: number
 
-  onQuantitySubmit: (item: { item: string; name: string; quantity: number }) => void
+  onQuantitySubmit?: (item: { item: string; name: string; quantity: number }) => void
 }
 
 export const GridItem: React.FC<Props> = props => {
-  const [loading, setLoading] = useState<boolean>(false)
-
   const handleSubmit = async (quantity: number) => {
+    if (!props.onQuantitySubmit) return
+
     const cartItem = { item: props.id, name: props.name, quantity }
 
-    setLoading(true)
-
     await props.onQuantitySubmit(cartItem)
-
-    setLoading(false)
   }
 
   return (
@@ -43,7 +39,7 @@ export const GridItem: React.FC<Props> = props => {
             <p>{props.description}</p>
           </div>
 
-          <QuantityForm onSubmit={handleSubmit} loading={loading} />
+          <QuantityForm onSubmit={handleSubmit} />
         </div>
       </div>
     </div>
