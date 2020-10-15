@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { QuantityForm } from './form/QuantityForm'
 
@@ -26,8 +27,10 @@ export const Card: React.FC<Props> = props => {
       setLoading(true)
       await CartService.addItemToCart(cartItem)
       setLoading(false)
+
+      toast.info(`Added ${quantity} '${props.name}' to cart`)
     } catch (error) {
-      console.log(error)
+      toast.error(`Error adding ${quantity} '${props.name}' to cart`)
     }
   }
 
