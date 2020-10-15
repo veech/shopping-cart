@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 
-import { Loader } from './common/Loader'
-import { QuantityForm } from './form/QuantityForm'
+import { QuantityForm } from '../form/QuantityForm'
 
-import { formatPrice } from '../utils/helpers'
+import { formatPrice } from '../../utils/helpers'
 
-import './GridList.css'
+import './GridItem.css'
 
 interface Props {
   id: string
@@ -49,10 +48,4 @@ export const GridItem: React.FC<Props> = props => {
       </div>
     </div>
   )
-}
-
-export const GridList: React.FC<{}> = props => {
-  if (!props.children) return <Loader />
-
-  return <div className="columns is-multiline">{props.children}</div>
 }

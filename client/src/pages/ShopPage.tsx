@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { GridList, GridItem } from '../components/GridList'
+import { GridList, GridItem } from '../components/grid'
 
 import { ItemService } from '../services/ItemService'
 import { CartService } from '../services/CartService'
