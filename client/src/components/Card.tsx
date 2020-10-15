@@ -4,6 +4,8 @@ import { QuantityForm } from './form/QuantityForm'
 
 import { CartService } from '../services/CartService'
 
+import { formatPrice } from '../utils/helpers'
+
 import './Card.css'
 
 interface Props {
@@ -38,8 +40,8 @@ export const Card: React.FC<Props> = props => {
       <div className="card-content">
         <div className="content">
           <h5>{props.name}</h5>
+          <p>{formatPrice(props.price)}</p>
           <p>{props.description}</p>
-          <p>{props.price}</p>
         </div>
 
         <QuantityForm onSubmit={handleAddToCart} loading={loading} />
