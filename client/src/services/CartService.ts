@@ -12,4 +12,9 @@ export class CartService {
     const { data } = await axios.post<CartItem>('/cart', newCartItem)
     return data
   }
+
+  static async getAll(): Promise<Array<CartItem>> {
+    const { data } = await axios.get<Array<CartItem>>('/cart')
+    return data
+  }
 }
