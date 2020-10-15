@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { GridList, GridItem } from '../components/GridList'
 
 import { ItemService } from '../services/ItemService'
+import { CartService } from '../services/CartService'
 
 import { Item } from '../utils/types'
 
 interface Props {}
+
+const handleQuanitySubmit = async (data: { item: string; name: string; quantity: number }) => {
+  const { name, ...cartItem } = data
+
+  try {
+    await CartService.addItem(cartItem)
+
+    toast.info(`Added ${cartItem.quantity} '${name}' to cart`)
+  } catch (error) {
+    toast.error(`Error adding ${cartItem.quantity} '${name}' to cart`)
+  }
+}
 
 export const ShopPage: React.FC<Props> = () => {
   const [items, setItems] = useState<Array<Item> | null>(null)
@@ -23,7 +37,7 @@ export const ShopPage: React.FC<Props> = () => {
 
         <GridList>
           {items?.map(item => (
-            <GridItem id={item.id} name={item.name} description={item.description} price={item.price} img={item.img} />
+            <GridItem {...item} key={item.id} onQuantitySubmit={handleQuanitySubmit} />
           ))}
         </GridList>
       </div>

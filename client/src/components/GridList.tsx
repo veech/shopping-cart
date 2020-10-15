@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
-import { toast } from 'react-toastify'
 
 import { Loader } from './common/Loader'
 import { QuantityForm } from './form/QuantityForm'
-
-import { CartService } from '../services/CartService'
 
 import { formatPrice } from '../utils/helpers'
 
@@ -16,23 +13,21 @@ interface Props {
   description: string
   img: string
   price: number
+
+  onQuantitySubmit: (item: { item: string; name: string; quantity: number }) => void
 }
 
 export const GridItem: React.FC<Props> = props => {
   const [loading, setLoading] = useState<boolean>(false)
 
-  const handleAddToCart = async (quantity: number) => {
-    const cartItem = { item: props.id, quantity }
+  const handleSubmit = async (quantity: number) => {
+    const cartItem = { item: props.id, name: props.name, quantity }
 
-    try {
-      setLoading(true)
-      await CartService.addItem(cartItem)
-      setLoading(false)
+    setLoading(true)
 
-      toast.info(`Added ${quantity} '${props.name}' to cart`)
-    } catch (error) {
-      toast.error(`Error adding ${quantity} '${props.name}' to cart`)
-    }
+    await props.onQuantitySubmit(cartItem)
+
+    setLoading(false)
   }
 
   return (
@@ -49,7 +44,7 @@ export const GridItem: React.FC<Props> = props => {
             <p>{props.description}</p>
           </div>
 
-          <QuantityForm onSubmit={handleAddToCart} loading={loading} />
+          <QuantityForm onSubmit={handleSubmit} loading={loading} />
         </div>
       </div>
     </div>
