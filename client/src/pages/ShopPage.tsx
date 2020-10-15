@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import { Loader } from '../components/common/Loader'
 import { GridList, GridItem } from '../components/GridList'
 
 import { ItemService } from '../services/ItemService'
