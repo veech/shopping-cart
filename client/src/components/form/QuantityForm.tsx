@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 
 interface Props {
+  placeholder?: string
+  icon: string
+
   onSubmit?: (quantity: number) => void
 }
 
@@ -40,9 +43,8 @@ export const QuantityForm: React.FC<Props> = props => {
         <div className="control">
           <button className={`button is-info is-outlined${loading ? ' is-loading' : ''}`}>
             <span className="icon">
-              <i className="fas fa-plus"></i>
+              <i className={`fas fa-${props.icon}`}></i>
             </span>
-            <strong>Cart</strong>
           </button>
         </div>
       </div>

@@ -39,7 +39,7 @@ export const GridItem: React.FC<Props> = props => {
             <p>{props.description}</p>
           </div>
 
-          <QuantityForm onSubmit={handleSubmit} />
+          <QuantityForm icon="plus" onSubmit={handleSubmit} />
         </div>
       </div>
     </div>
