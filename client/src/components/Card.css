@@ -1,3 +1,9 @@
 .card .card-content .content {
   min-height: 125px;
 }
+
+.card .card-image .image-container {
+  padding-top: 75%;
+  background-position: center;
+  background-size: cover;
+}
