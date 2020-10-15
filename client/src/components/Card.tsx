@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { QuantityForm } from './form/QuantityForm'
+
+import { CartService } from '../services/CartService'
 
 import './Card.css'
 
 interface Props {
+  id: string
   name: string
   description: string
   img: string
@@ -12,8 +15,18 @@ interface Props {
 }
 
 export const Card: React.FC<Props> = props => {
-  const onQuantitySubmit = (quantity: number) => {
-    console.log(quantity)
+  const [loading, setLoading] = useState<boolean>(false)
+
+  const handleAddToCart = async (quantity: number) => {
+    const cartItem = { item: props.id, quantity }
+
+    try {
+      setLoading(true)
+      await CartService.addItemToCart(cartItem)
+      setLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -29,7 +42,7 @@ export const Card: React.FC<Props> = props => {
           <p>{props.price}</p>
         </div>
 
-        <QuantityForm onSubmit={onQuantitySubmit} />
+        <QuantityForm onSubmit={handleAddToCart} loading={loading} />
       </div>
     </div>
   )
