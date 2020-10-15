@@ -1,25 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
 import { Loader } from '../components/common/Loader'
-import { ItemCard } from '../components/ItemCard'
+import { GridList, GridItem } from '../components/GridList'
 
 import { ItemService } from '../services/ItemService'
 
 import { Item } from '../utils/types'
 
 interface Props {}
-
-const renderItems = (items: Array<Item> | null) => {
-  if (!items) return <Loader />
-
-  const cards = items.map(item => (
-    <div key={item.id} className="column is-one-third">
-      <ItemCard id={item.id} name={item.name} description={item.description} price={item.price} img={item.img} />
-    </div>
-  ))
-
-  return <div className="columns is-multiline">{cards}</div>
-}
 
 export const ShopPage: React.FC<Props> = () => {
   const [items, setItems] = useState<Array<Item> | null>(null)
@@ -34,7 +22,11 @@ export const ShopPage: React.FC<Props> = () => {
         <h3 className="title is-3">Shop</h3>
         {items ? <h5 className="subtitle is-5">{items?.length} items</h5> : null}
 
-        {renderItems(items)}
+        <GridList>
+          {items?.map(item => (
+            <GridItem id={item.id} name={item.name} description={item.description} price={item.price} img={item.img} />
+          ))}
+        </GridList>
       </div>
     </section>
   )

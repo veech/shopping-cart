@@ -1,8 +1,8 @@
-.card .card-content .content {
+.grid-item .card-content .content {
   min-height: 150px;
 }
 
-.card .card-image .image-container {
+.grid-item .card-image .image-container {
   padding-top: 75%;
   background-position: center;
   background-size: cover;

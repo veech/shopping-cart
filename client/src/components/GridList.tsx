@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
+import { Loader } from './common/Loader'
 import { QuantityForm } from './form/QuantityForm'
 
 import { CartService } from '../services/CartService'
 
 import { formatPrice } from '../utils/helpers'
 
-import './ItemCard.css'
+import './GridList.css'
 
 interface Props {
   id: string
@@ -17,7 +18,7 @@ interface Props {
   price: number
 }
 
-export const ItemCard: React.FC<Props> = props => {
+export const GridItem: React.FC<Props> = props => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const handleAddToCart = async (quantity: number) => {
@@ -35,20 +36,28 @@ export const ItemCard: React.FC<Props> = props => {
   }
 
   return (
-    <div className="card">
-      <div className="card-image">
-        <div className="image-container" style={{ backgroundImage: `url(${props.img})` }}></div>
-      </div>
-
-      <div className="card-content">
-        <div className="content">
-          <h5>{props.name}</h5>
-          <p>{formatPrice(props.price)}</p>
-          <p>{props.description}</p>
+    <div className="column is-one-third">
+      <div className="card grid-item">
+        <div className="card-image">
+          <div className="image-container" style={{ backgroundImage: `url(${props.img})` }}></div>
         </div>
 
-        <QuantityForm onSubmit={handleAddToCart} loading={loading} />
+        <div className="card-content">
+          <div className="content">
+            <h5>{props.name}</h5>
+            <p>{formatPrice(props.price)}</p>
+            <p>{props.description}</p>
+          </div>
+
+          <QuantityForm onSubmit={handleAddToCart} loading={loading} />
+        </div>
       </div>
     </div>
   )
+}
+
+export const GridList: React.FC<{}> = props => {
+  if (!props.children) return <Loader />
+
+  return <div className="columns is-multiline">{props.children}</div>
 }
