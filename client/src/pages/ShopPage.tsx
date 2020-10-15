@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { Loader } from '../components/common/Loader'
-import { Card } from '../components/Card'
+import { ItemCard } from '../components/ItemCard'
 
 import { ItemService } from '../services/ItemService'
 
@@ -14,7 +14,7 @@ const renderItems = (items: Array<Item> | null) => {
 
   const cards = items.map(item => (
     <div key={item.id} className="column is-one-third">
-      <Card id={item.id} name={item.name} description={item.description} price={item.price} img={item.img} />
+      <ItemCard id={item.id} name={item.name} description={item.description} price={item.price} img={item.img} />
     </div>
   ))
 

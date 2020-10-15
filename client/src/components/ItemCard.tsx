@@ -7,7 +7,7 @@ import { CartService } from '../services/CartService'
 
 import { formatPrice } from '../utils/helpers'
 
-import './Card.css'
+import './ItemCard.css'
 
 interface Props {
   id: string
@@ -17,7 +17,7 @@ interface Props {
   price: number
 }
 
-export const Card: React.FC<Props> = props => {
+export const ItemCard: React.FC<Props> = props => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const handleAddToCart = async (quantity: number) => {
