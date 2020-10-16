@@ -87,7 +87,7 @@ export const CartPage: React.FC<Props> = () => {
           </div>
 
           <div className="column">
-            <SummaryCard subtotal={subtotal} tax={200} shipping={800} />
+            {lineItems && lineItems.length > 0 ? <SummaryCard subtotal={subtotal} tax={200} shipping={800} /> : null}
           </div>
         </div>
       </div>
