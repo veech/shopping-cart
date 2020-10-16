@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { CartService } from '../services/CartService'
 import { ItemService } from '../services/ItemService'
@@ -25,6 +26,24 @@ export const CartPage: React.FC<Props> = () => {
     })
   }, [])
 
+  const handleQuanitySubmit = async (data: { item: string; name: string; quantity: number }) => {
+    const { item, name, quantity } = data
+
+    if (!lineItems) return
+
+    try {
+      const updatedCartItem = await CartService.updateItemQuantity(item, quantity)
+
+      const updatedLineItems = lineItems.map(item => (item.id === updatedCartItem.item ? { ...item, quantity } : item))
+
+      setLineItems(updatedLineItems)
+
+      toast.info(`Set '${name}' quantity to ${updatedCartItem.quantity}`)
+    } catch (error) {
+      toast.error(`Error setting '${name}' quantity to ${quantity}`)
+    }
+  }
+
   const subtotal = lineItems?.reduce((sum, lineItem) => sum + lineItem.price * lineItem.quantity, 0) || 0
 
   return (
@@ -37,7 +56,7 @@ export const CartPage: React.FC<Props> = () => {
           <div className="column is-half">
             <List>
               {lineItems?.map(lineItem => (
-                <ListItem key={lineItem.id} {...lineItem} />
+                <ListItem {...lineItem} key={lineItem.id} onQuantitySubmit={handleQuanitySubmit} />
               ))}
             </List>
           </div>

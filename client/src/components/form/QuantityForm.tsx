@@ -6,6 +6,7 @@ interface Props {
   placeholder?: string
   icon: string
   defaultValue?: string
+  keepOnSubmit?: boolean
 
   onSubmit?: (quantity: number) => void
 }
@@ -27,7 +28,9 @@ export const QuantityForm: React.FC<Props> = props => {
       setLoading(false)
     }
 
-    setQuantity('')
+    if (!props.keepOnSubmit) {
+      setQuantity('')
+    }
   }
 
   return (
