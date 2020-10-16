@@ -23,8 +23,8 @@ export class CartService {
     return data
   }
 
-  static async deleteItem(itemId: string): Promise<CartItem> {
-    const { data } = await axios.delete<CartItem>(`/cart/${itemId}`)
+  static async deleteItem(itemId: string): Promise<null> {
+    const { data } = await axios.delete<null>(`/cart/${itemId}`)
     return data
   }
 }
