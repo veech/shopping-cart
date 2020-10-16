@@ -83,7 +83,7 @@ func (cc *CartController) GetCartItems(c *gin.Context) {
 func (cc *CartController) AddItemToCart(c *gin.Context) {
 	var data models.CartItem
 
-	if c.BindJSON(&data) != nil {
+	if c.BindJSON(&data) != nil || data.Quantity == 0 {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "invalid request data"})
 		return
 	}
