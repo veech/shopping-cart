@@ -63,7 +63,7 @@ export const ListItem: React.FC<Props> = props => {
 
         <footer className="card-footer">
           <div className="card-footer-item">
-            <QuantityForm icon="check" onSubmit={handleSubmit} defaultValue={props.quantity.toString()} keepOnSubmit />
+            <QuantityForm icon="redo" onSubmit={handleSubmit} defaultValue={props.quantity.toString()} keepOnSubmit />
           </div>
           <div className="card-footer-item">
             <Button className="is-danger is-outlined" onClick={handleClick}>
