@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  shopping-client:
+  client:
     build:
       context: ./client
       dockerfile: Dockerfile
@@ -17,3 +17,11 @@ services:
 
     environment:
       - CHOKIDAR_USEPOLLING=true
+
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+
+    ports:
+      - 8080:8080
