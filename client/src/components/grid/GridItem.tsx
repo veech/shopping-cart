@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { QuantityForm } from '../form/QuantityForm'
+import { QuantityForm } from '../form'
 
 import { formatPrice } from '../../utils/helpers'
 
