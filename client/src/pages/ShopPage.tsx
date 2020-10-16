@@ -19,6 +19,7 @@ const handleQuanitySubmit = async (data: { item: string; name: string; quantity:
     toast.info(`Added ${cartItem.quantity} '${name}' to cart`)
   } catch (error) {
     toast.error(`Error adding ${cartItem.quantity} '${name}' to cart`)
+    console.log(error)
   }
 }
 

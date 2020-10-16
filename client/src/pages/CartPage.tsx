@@ -41,6 +41,26 @@ export const CartPage: React.FC<Props> = () => {
       toast.info(`Set '${name}' quantity to ${updatedCartItem.quantity}`)
     } catch (error) {
       toast.error(`Error setting '${name}' quantity to ${quantity}`)
+      console.log(error)
+    }
+  }
+
+  const handleDelete = async (data: { item: string; name: string }) => {
+    const { item, name } = data
+
+    if (!lineItems) return
+
+    try {
+      await CartService.deleteItem(item)
+
+      const updatedLineItems = lineItems.filter(lineItem => lineItem.id !== item)
+
+      setLineItems(updatedLineItems)
+
+      toast.info(`'${name}' removed from cart`)
+    } catch (error) {
+      toast.error(`Error removing '${name}' from cart`)
+      console.log(error)
     }
   }
 
@@ -56,7 +76,12 @@ export const CartPage: React.FC<Props> = () => {
           <div className="column is-half">
             <List>
               {lineItems?.map(lineItem => (
-                <ListItem {...lineItem} key={lineItem.id} onQuantitySubmit={handleQuanitySubmit} />
+                <ListItem
+                  {...lineItem}
+                  key={lineItem.id}
+                  onQuantitySubmit={handleQuanitySubmit}
+                  onDelete={handleDelete}
+                />
               ))}
             </List>
           </div>

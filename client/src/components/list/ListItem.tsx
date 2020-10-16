@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { QuantityForm } from '../form/QuantityForm'
+import { QuantityForm, Button } from '../form'
 
 import { formatPrice } from '../../utils/helpers'
 
@@ -15,6 +15,7 @@ interface Props {
   quantity: number
 
   onQuantitySubmit?: (item: { item: string; name: string; quantity: number }) => void
+  onDelete?: (data: { item: string; name: string }) => void
 }
 
 export const ListItem: React.FC<Props> = props => {
@@ -24,6 +25,14 @@ export const ListItem: React.FC<Props> = props => {
     const cartItem = { item: props.id, name: props.name, quantity }
 
     await props.onQuantitySubmit(cartItem)
+  }
+
+  const handleClick = async () => {
+    if (!props.onDelete) return
+
+    const cartItem = { item: props.id, name: props.name }
+
+    await props.onDelete(cartItem)
   }
 
   return (
@@ -57,9 +66,9 @@ export const ListItem: React.FC<Props> = props => {
             <QuantityForm icon="check" onSubmit={handleSubmit} defaultValue={props.quantity.toString()} keepOnSubmit />
           </div>
           <div className="card-footer-item">
-            <button className="button is-danger is-outlined">
+            <Button className="is-danger is-outlined" onClick={handleClick}>
               <strong>Remove</strong>
-            </button>
+            </Button>
           </div>
         </footer>
       </div>

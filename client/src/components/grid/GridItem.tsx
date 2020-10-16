@@ -13,7 +13,7 @@ interface Props {
   img: string
   price: number
 
-  onQuantitySubmit?: (item: { item: string; name: string; quantity: number }) => void
+  onQuantitySubmit?: (data: { item: string; name: string; quantity: number }) => void
 }
 
 export const GridItem: React.FC<Props> = props => {
