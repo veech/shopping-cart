@@ -12,7 +12,7 @@ export interface CartItem {
   user: string
 }
 
-export interface ListItem {
+export interface LineItem {
   id: string
   name: string
   description: string

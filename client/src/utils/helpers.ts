@@ -1,4 +1,4 @@
-import { Item, CartItem, ListItem } from './types'
+import { Item, CartItem, LineItem } from './types'
 
 export const formatPrice = (price: number): string => {
   const decimal = price / 100
@@ -12,12 +12,12 @@ const makeItemMap = (items: Array<Item>): Map<string, Item> => {
   return new Map<string, Item>(mapEntries)
 }
 
-export const makeListItems = (items: Array<Item>, cartItems: Array<CartItem>): Array<ListItem> => {
+export const makeLineItems = (items: Array<Item>, cartItems: Array<CartItem>): Array<LineItem> => {
   const itemMap = makeItemMap(items)
 
   const existingCartItems = cartItems.filter(cartItem => itemMap.get(cartItem.item))
 
-  const listItems = existingCartItems.map(cartItem => {
+  const lineItems = existingCartItems.map(cartItem => {
     const { quantity } = cartItem
 
     const item = itemMap.get(cartItem.item) as Item
@@ -25,5 +25,5 @@ export const makeListItems = (items: Array<Item>, cartItems: Array<CartItem>): A
     return { ...item, quantity }
   })
 
-  return listItems
+  return lineItems
 }
