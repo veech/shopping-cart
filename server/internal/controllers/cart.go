@@ -118,6 +118,12 @@ func (cc *CartController) UpdateCartItem(c *gin.Context) {
 	itemID := c.Param("itemId")
 	username := getToken(c)
 
+	if data.Quantity == 0 {
+		cc.removeCartItemByID(username, itemID)
+		c.JSON(http.StatusNoContent, nil)
+		return
+	}
+
 	existingCartItem := cc.getCartItemByID(username, itemID)
 
 	if existingCartItem == nil {
@@ -136,5 +142,5 @@ func (cc *CartController) DeleteCartItem(c *gin.Context) {
 
 	cc.removeCartItemByID(username, itemID)
 
-	c.JSON(http.StatusOK, nil)
+	c.JSON(http.StatusNoContent, nil)
 }
