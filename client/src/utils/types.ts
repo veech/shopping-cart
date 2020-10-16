@@ -11,3 +11,12 @@ export interface CartItem {
   quantity: number
   user: string
 }
+
+export interface ListItem {
+  id: string
+  name: string
+  description: string
+  img: string
+  price: number
+  quantity: number
+}
