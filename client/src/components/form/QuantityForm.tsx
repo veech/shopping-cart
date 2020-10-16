@@ -33,6 +33,8 @@ export const QuantityForm: React.FC<Props> = props => {
     }
   }
 
+  const buttonClass = `button is-info is-outlined${loading ? ' is-loading' : ''}`
+
   return (
     <form onSubmit={formSubmit}>
       <div className="field has-addons">
@@ -47,7 +49,7 @@ export const QuantityForm: React.FC<Props> = props => {
         </div>
 
         <div className="control">
-          <button className={`button is-info is-outlined${loading ? ' is-loading' : ''}`}>
+          <button className={buttonClass} disabled={quantity === ''}>
             <span className="icon">
               <i className={`fas fa-${props.icon}`}></i>
             </span>
