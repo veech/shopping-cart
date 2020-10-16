@@ -26,17 +26,36 @@ export const CartPage: React.FC<Props> = () => {
     })
   }, [])
 
+  const updateLineItemQuantity = (itemId: string, quantity: number) => {
+    if (!lineItems) return
+
+    const updatedLineItems = lineItems.map(item => (item.id === itemId ? { ...item, quantity } : item))
+
+    setLineItems(updatedLineItems)
+  }
+
+  const removeLineItem = (itemId: string) => {
+    if (!lineItems) return
+
+    const updatedLineItems = lineItems.filter(lineItem => lineItem.id !== itemId)
+
+    setLineItems(updatedLineItems)
+  }
+
   const handleQuanitySubmit = async (data: { item: string; name: string; quantity: number }) => {
     const { item, name, quantity } = data
-
-    if (!lineItems) return
 
     try {
       const updatedCartItem = await CartService.updateItemQuantity(item, quantity)
 
-      const updatedLineItems = lineItems.map(item => (item.id === updatedCartItem.item ? { ...item, quantity } : item))
+      // Situation where quantity was set to 0
+      if (!updatedCartItem) {
+        removeLineItem(item)
+        toast.info(`'${name}' removed from cart`)
+        return
+      }
 
-      setLineItems(updatedLineItems)
+      updateLineItemQuantity(updatedCartItem.item, updatedCartItem.quantity)
 
       toast.info(`Set '${name}' quantity to ${updatedCartItem.quantity}`)
     } catch (error) {
@@ -53,9 +72,7 @@ export const CartPage: React.FC<Props> = () => {
     try {
       await CartService.deleteItem(item)
 
-      const updatedLineItems = lineItems.filter(lineItem => lineItem.id !== item)
-
-      setLineItems(updatedLineItems)
+      removeLineItem(item)
 
       toast.info(`'${name}' removed from cart`)
     } catch (error) {

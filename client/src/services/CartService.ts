@@ -18,7 +18,7 @@ export class CartService {
     return data
   }
 
-  static async updateItemQuantity(itemId: string, quantity: number): Promise<CartItem> {
+  static async updateItemQuantity(itemId: string, quantity: number): Promise<CartItem | null> {
     const { data } = await axios.patch<CartItem>(`/cart/${itemId}`, { quantity })
     return data
   }
