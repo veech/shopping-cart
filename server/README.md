@@ -1,7 +1,5 @@
 ### Shopping Cart Server
 
-This is a RESTful API built for the Josh.ai shopping cart coding quiz.
-
 Project layout based on https://github.com/golang-standards/project-layout
 
 To get started, run:
