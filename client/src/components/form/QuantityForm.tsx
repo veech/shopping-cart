@@ -3,12 +3,13 @@ import React, { useState } from 'react'
 interface Props {
   placeholder?: string
   icon: string
+  defaultValue?: string
 
   onSubmit?: (quantity: number) => void
 }
 
 export const QuantityForm: React.FC<Props> = props => {
-  const [quantity, setQuantity] = useState<string>('')
+  const [quantity, setQuantity] = useState<string>(props.defaultValue || '')
   const [loading, setLoading] = useState<boolean>(false)
 
   const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
