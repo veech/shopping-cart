@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import './QuantityForm.css'
+
 interface Props {
   placeholder?: string
   icon: string
