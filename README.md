@@ -2,6 +2,8 @@
 
 #### Getting started
 
+To view the app live: http://fude.us
+
 To run the app locally, you must have node v10.x and go v1.15.2 **OR** Docker installed
 
 #### Running app using Docker
