@@ -10,23 +10,24 @@ func main() {
 	itemController := controllers.NewItemController()
 	cartController := controllers.NewCartController()
 
-	router := gin.Default()
+	app := gin.Default()
 
-	router.Use(middleware.CORSMiddleware)
+	app.Use(middleware.CORSMiddleware)
 
-	/* --- Public routes --- */
+	router := app.Group("/api")
 
-	router.GET("/items", itemController.GetItems)
+	publicRouter := router.Group("")
 
-	router.Use(middleware.AuthMiddleware)
+	privateRouter := router.Group("")
+	privateRouter.Use(middleware.AuthMiddleware)
 
-	/* --- User routes --- */
+	publicRouter.GET("/items", itemController.GetItems)
 
-	router.GET("/cart", cartController.GetCartItems)
-	router.POST("/cart", cartController.AddItemToCart)
-	router.PATCH("/cart/:itemId", cartController.UpdateCartItem)
-	router.DELETE("/cart/:itemId", cartController.DeleteCartItem)
+	privateRouter.GET("/cart", cartController.GetCartItems)
+	privateRouter.POST("/cart", cartController.AddItemToCart)
+	privateRouter.PATCH("/cart/:itemId", cartController.UpdateCartItem)
+	privateRouter.DELETE("/cart/:itemId", cartController.DeleteCartItem)
 
-	// For simplicity, hard coding instead of obtaining via env var
-	router.Run(":8080")
+	// For simplicity, hard coding port instead of obtaining via env var
+	app.Run(":8080")
 }
